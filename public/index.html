@@ -4,45 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escrita Automática</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        #texto {
+            font-size: 20px;
+            width: 80%;
+            margin: auto;
+            white-space: pre-line;
+            min-height: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Escrita Automática</h1>
-    
     <textarea id="userText" placeholder="Digite seu texto aqui..." rows="5"></textarea>
     <br>
-    
-    <label for="timer">Tempo de Atraso (segundos):</label>
-    <input type="number" id="timer" placeholder="Tempo em segundos" min="1">
-    <br>
-    
     <button onclick="startTyping()">Ativar Escrita Automática</button>
-    
+    <div id="downloadLink"></div>
+
     <script>
         async function startTyping() {
-            const text = document.getElementById('userText').value;
-            const delay = document.getElementById('timer').value;
+            const text = document.getElementById("userText").value;
+            const delay = 2000; // Atraso de 2 segundos antes de iniciar
 
-            if (!text || !delay) {
-                alert('Por favor, insira o texto e o tempo de atraso!');
-                return;
-            }
+            // Enviar o texto e delay para o servidor
+            const response = await fetch('/start-typing', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text, delay })
+            });
 
-            try {
-                const response = await fetch('/start-typing', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ text, delay })
-                });
+            const data = await response.json();
 
-                const data = await response.json();
-                alert(data.message);
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Houve um erro ao iniciar a escrita automática.');
-            }
+            // Criar o link para download
+            const downloadLink = document.createElement('a');
+            downloadLink.href = data.filePath;
+            downloadLink.download = 'escrita.vbs';
+            downloadLink.innerText = 'Clique aqui para baixar o script VBS';
+            document.getElementById("downloadLink").appendChild(downloadLink);
         }
     </script>
 </body>

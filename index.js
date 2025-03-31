@@ -1,49 +1,35 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const { exec } = require('child_process');
 const app = express();
+const port = 3000;
 
-// Pasta pública para servir o HTML e CSS
-app.use(express.static('public'));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota para iniciar a escrita automática
+// Rota para gerar o script VBS
 app.post('/start-typing', (req, res) => {
-    const { text, delay } = req.body;  // Texto e delay recebidos do frontend
-    const tempDir = path.join(__dirname, 'temp');
-    
-    // Verificar se a pasta temp existe, senão cria
-    if (!fs.existsSync(tempDir)) {
-        fs.mkdirSync(tempDir);
-    }
+    const { text, delay } = req.body;
 
-    // Caminho para o arquivo VBS
-    const vbsPath = path.join(tempDir, 'escrita.vbs');
-    
-    // Gerar o código VBS
-    const vbsCode = `
-        Set WshShell = CreateObject("WScript.Shell")
-        WScript.Sleep ${delay * 1000} ' Espera o tempo configurado antes de começar
-        WshShell.SendKeys "${text.replace(/\n/g, '" & vbCrLf & "')}"
-        WshShell.SendKeys "{ENTER}"
-    `;
+    // Geração do código VBS
+    const vbsCode = `Set WshShell = CreateObject("WScript.Shell")\nWScript.Sleep ${delay}\nWshShell.SendKeys "${text}"\nWshShell.SendKeys "{ENTER}"`;
 
-    // Criar e escrever o arquivo VBS
-    fs.writeFileSync(vbsPath, vbsCode, 'utf8');
+    // Caminho onde o script VBS será salvo
+    const vbsFilePath = path.join(__dirname, 'temp', 'escrita.vbs');
 
-    // Executar o script VBS
-    exec(`cscript //B "${vbsPath}"`, (err, stdout, stderr) => {
-        if (err) {
-            console.error('Erro ao executar o script:', err);
-            return res.status(500).send({ error: 'Erro ao executar o script VBS' });
-        }
-        console.log('stdout:', stdout); // Exibe a saída do script no terminal
-        res.send({ message: 'Script VBS executado com sucesso!' });
-    });
+    // Garantir que o diretório 'temp' existe
+    fs.mkdirSync(path.join(__dirname, 'temp'), { recursive: true });
+
+    // Criar e salvar o arquivo VBS
+    fs.writeFileSync(vbsFilePath, vbsCode);
+
+    // Responder com a URL para o download do VBS
+    res.json({ filePath: `/download/escrita.vbs` });
 });
 
-// Iniciar o servidor
-app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
+// Rota para download do arquivo VBS
+app.use('/download', express.static(path.join(__dirname, 'temp')));
+
+app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`);
 });
