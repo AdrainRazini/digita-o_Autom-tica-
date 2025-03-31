@@ -26,18 +26,11 @@ Veja abaixo alguns exemplos de como o script pode ser utilizado:
 ### 1. Gerando o VBS
 Aqui, você verá a interface onde o texto é inserido para gerar o script VBS.
 
-![Gerando VBS](img/Gerar%20vbs.png)
-
 ### 2. Arquivo VBS Baixado
 Após gerar o VBS, você poderá baixá-lo e estar pronto para executá-lo.
 
-![Arquivo Baixado](img/baixado.png)
-
 ### 3. Execução do VBS
 Por fim, o script gerado será executado, automatizando a digitação do texto inserido.
-
-![Execução do VBS](img/sendo%20executado%20.png)
-
 ---
 
 ## 🛠 Tecnologias Utilizadas  
