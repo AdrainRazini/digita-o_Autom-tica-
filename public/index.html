@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escrita Automática</title>
+    <title>Gerador de VBS</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,7 +23,7 @@
             cursor: pointer;
             margin-top: 10px;
         }
-        input {
+        textarea {
             width: 80%;
             padding: 10px;
             font-size: 16px;
@@ -32,34 +32,50 @@
     </style>
 </head>
 <body>
-    <h1>Escrita Automática</h1>
-    <textarea id="userText" placeholder="Digite seu texto aqui..." rows="5"></textarea>
+    <h1>Gerador de VBS</h1>
+    <textarea id="userText" placeholder="Digite seu texto aqui..." rows="10"></textarea>
     <br>
-    <button onclick="startTyping()">Ativar Escrita Automática</button>
-    <div id="downloadLink"></div>
+    <button onclick="generateVBS()">Gerar VBS</button>
 
     <script>
-        async function startTyping() {
-            const text = document.getElementById("userText").value;
-            const delay = 2000; // Atraso de 2 segundos antes de iniciar
+        // Função para remover acentos
+        function removeAccents(str) {
+            return str
+                .replace(/[áàãâä]/g, 'a')
+                .replace(/[éèêë]/g, 'e')
+                .replace(/[íìîï]/g, 'i')
+                .replace(/[óòõôö]/g, 'o')
+                .replace(/[úùûü]/g, 'u')
+                .replace(/[ç]/g, 'c')
+                .replace(/[ÁÀÃÂÄ]/g, 'A')
+                .replace(/[ÉÈÊË]/g, 'E')
+                .replace(/[ÍÌÎÏ]/g, 'I')
+                .replace(/[ÓÒÕÔÖ]/g, 'O')
+                .replace(/[ÚÙÛÜ]/g, 'U')
+                .replace(/[Ç]/g, 'C');
+        }
 
-            // Enviar o texto e delay para o servidor
-            const response = await fetch('/start-typing', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text, delay })
-            });
+        // Função para gerar o arquivo VBS
+        function generateVBS() {
+            let userText = document.getElementById("userText").value;
+            
+            // Remove acentos do texto
+            let cleanedText = removeAccents(userText);
 
-            const data = await response.json();
+            // Escapa as quebras de linha corretamente
+            let formattedText = cleanedText.split("\n").map(function(line) {
+                return '"' + line.trim() + '"';
+            }).join(' & vbCrLf & _\n');
 
-            // Criar o link para download
-            const downloadLink = document.createElement('a');
-            downloadLink.href = data.filePath;
-            downloadLink.download = 'escrita.vbs';
-            downloadLink.innerText = 'Clique aqui para baixar o script VBS';
-            document.getElementById("downloadLink").appendChild(downloadLink);
+            // Formatar o código VBS com o texto limpo e as quebras de linha
+            let vbsCode = `Set WshShell = CreateObject("WScript.Shell")\nWScript.Sleep 2000 ' Espera 2 segundos antes de comecar a digitar\n\ntexto = ${formattedText}\nWshShell.SendKeys texto\nWshShell.SendKeys "{ENTER}" ' Aperta Enter no final`;
+
+            // Criar o arquivo VBS (no navegador, você cria o arquivo com o conteúdo gerado)
+            let blob = new Blob([vbsCode], { type: 'text/vbs' });
+            let link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'escrita.vbs'; // Nome do arquivo VBS
+            link.click();
         }
     </script>
 </body>
