@@ -29,10 +29,26 @@
             font-size: 16px;
             margin-bottom: 10px;
         }
+
+        .section {
+            padding: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
+    
+        .imagem-dinamica {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin-top: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
     </style>
 </head>
 <body>
-
     <h1>O formato que eu vi que é aceito é esse aqui</h1>
 
     <p>
@@ -51,6 +67,39 @@
     <textarea id="userText" placeholder="Digite seu texto aqui..." rows="10"></textarea>
     <br>
     <button onclick="generateVBS()">Gerar VBS</button>
+    <section class="section">
+        <video class="imagem-dinamica" width="640" height="360" controls>
+            <source src="img/Gerador de VBS - Google Chrome 2025-03-31 01-16-20.mp4" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+        <p>
+            O vídeo acima mostra como usar o gerador de VBS. Nele, você verá o passo a passo de como inserir um texto e gerar automaticamente um arquivo de script VBS que pode ser executado em um sistema Windows. 
+            O gerador é uma ferramenta útil para automatizar a digitação de textos em programas e sistemas.
+        </p>
+    </section>
+    
+    <section class="section">
+        <h2>Como funciona?</h2>
+        <p>
+            Após gerar o arquivo VBS com o texto desejado, ele pode ser executado em qualquer máquina com Windows. Veja abaixo alguns exemplos de como o script pode ser utilizado em diferentes fases do processo:
+        </p>
+    
+        <img class="imagem-dinamica" src="img/Gerar vbs.png" alt="" style="max-width: 100px; max-height: 50px;">
+        <p>
+            A primeira imagem mostra a interface do gerador de VBS. Aqui, o usuário insere o texto que deseja automatizar. 
+        </p>
+    
+        <img class="imagem-dinamica" src="img/baixado.png" alt="">
+        <p>
+            Na segunda imagem, o arquivo VBS foi gerado e baixado para o computador. O nome do arquivo gerado pode ser personalizado pelo usuário, e ele estará pronto para ser executado.
+        </p>
+    
+        <img class="imagem-dinamica" src="img/sendo executado .png" alt="">
+        <p>
+            A última imagem mostra o momento em que o script VBS está sendo executado. Quando executado, ele automatiza a digitação do texto em qualquer campo que aceite a entrada de texto.
+        </p>
+    </section>
+    
 
     <script>
         // Função para remover acentos
