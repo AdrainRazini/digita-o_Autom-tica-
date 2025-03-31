@@ -50,7 +50,8 @@ Por fim, o script gerado será executado, automatizando a digitação do texto i
 site-central/
 │-- public/
 │   │-- index.html
-│   │-- img/
+│   │-- style.css
+│   │-- img/ 
 │   
 │      
 │-- readme.md
