@@ -77,46 +77,38 @@
     </section>
     
 
-    <script>
-        // Função para remover acentos
-        function removeAccents(str) {
-            return str
-                .replace(/[áàãâä]/g, 'a')
-                .replace(/[éèêë]/g, 'e')
-                .replace(/[íìîï]/g, 'i')
-                .replace(/[óòõôö]/g, 'o')
-                .replace(/[úùûü]/g, 'u')
-                .replace(/[ç]/g, 'c')
-                .replace(/[ÁÀÃÂÄ]/g, 'A')
-                .replace(/[ÉÈÊË]/g, 'E')
-                .replace(/[ÍÌÎÏ]/g, 'I')
-                .replace(/[ÓÒÕÔÖ]/g, 'O')
-                .replace(/[ÚÙÛÜ]/g, 'U')
-                .replace(/[Ç]/g, 'C');
-        }
+<script>
+    // Remove acentos do texto
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                  .replace(/ç/g, "c").replace(/Ç/g, "C");
+    }
 
-        // Função para gerar o arquivo VBS
-        function generateVBS() {
-            let userText = document.getElementById("userText").value;
+    // Gera e baixa o arquivo .vbs
+    function generateVBS() {
+        const userText = document.getElementById("userText").value;
 
-            // Remove acentos do texto
-            let cleanedText = removeAccents(userText);
+        // Remove acentos e troca aspas duplas por aspas simples
+        const cleanedText = removeAccents(userText).replace(/"/g, "'");
 
-            // Escapa as quebras de linha corretamente
-            let formattedText = cleanedText.split("\n").map(function(line) {
-                return '"' + line.trim() + '"';
-            }).join(' & vbCrLf & _\n');
+        // Quebra em linhas, adiciona aspas e concatena com vbCrLf
+        const lines = cleanedText.split("\n").map(line => `"${line.trim()}"`);
+        const formattedText = lines.join(" & vbCrLf & _\n");
 
-            // Formatar o código VBS com o texto limpo e as quebras de linha
-            let vbsCode = `Set WshShell = CreateObject("WScript.Shell")\nWScript.Sleep 2000 ' Espera 2 segundos antes de comecar a digitar\n\ntexto = ${formattedText}\nWshShell.SendKeys texto\nWshShell.SendKeys "{ENTER}" ' Aperta Enter no final`;
+        const vbsCode = `Set WshShell = CreateObject("WScript.Shell")\n` +
+                        `WScript.Sleep 2000 ' Espera 2 segundos\n\n` +
+                        `texto = ${formattedText}\n\n` +
+                        `WshShell.SendKeys texto\n` +
+                        `WshShell.SendKeys "{ENTER}"`;
 
-            // Criar o arquivo VBS (no navegador, você cria o arquivo com o conteúdo gerado)
-            let blob = new Blob([vbsCode], { type: 'text/vbs' });
-            let link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'escrita.vbs'; // Nome do arquivo VBS
-            link.click();
-        }
-    </script>
+        const blob = new Blob([vbsCode], { type: 'text/vbs' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'escrita.vbs';
+        link.click();
+    }
+</script>
+
+
 </body>
 </html>
