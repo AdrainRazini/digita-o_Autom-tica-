@@ -84,7 +84,7 @@
                   .replace(/ç/g, "c").replace(/Ç/g, "C");
     }
 
-    // Gera e baixa o arquivo .vbs
+    // Gera e baixa o arquivo .vbs com digitação humana simulada
     function generateVBS() {
         const userText = document.getElementById("userText").value;
 
@@ -95,11 +95,15 @@
         const lines = cleanedText.split("\n").map(line => `"${line.trim()}"`);
         const formattedText = lines.join(" & vbCrLf & _\n");
 
-        const vbsCode = `Set WshShell = CreateObject("WScript.Shell")\n` +Add commentMore actions
-                        `WScript.Sleep 2000 ' Espera 2 segundos\n\n` +
+        const vbsCode = `Set WshShell = CreateObject("WScript.Shell")\n` +
+                        `Randomize\n` +
+                        `WScript.Sleep 3000 ' Espera 3 segundos antes de digitar\n\n` +
                         `texto = ${formattedText}\n\n` +
-                        `WshShell.SendKeys texto\n` +
-                        `WshShell.SendKeys "{ENTER}"`;
+                        `For i = 1 To Len(texto)\n` +
+                        `    char = Mid(texto, i, 1)\n` +
+                        `    WshShell.SendKeys char\n` +
+                        `    WScript.Sleep Int((180 - 100 + 1) * Rnd + 100) ' Tempo aleatorio entre 100-180ms\n` +
+                        `Next`;
 
         const blob = new Blob([vbsCode], { type: 'text/vbs' });
         const link = document.createElement('a');
@@ -108,6 +112,7 @@
         link.click();
     }
 </script>
+
 
 
 </body>
