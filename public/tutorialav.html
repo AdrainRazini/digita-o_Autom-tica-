@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tutorial Avançado</title>
+  <link rel="shortcut icon" href="img/icone.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --font-family: 'Segoe UI', sans-serif;
+      --color-bg: #ffffff;
+      --color-text: #111827;
+      --color-purple: #6c5ce7;
+      --color-purple-hover: #5a3c9f;
+      --card-bg-color: #fff;
+      --card-border-color: #ddd;
+      --card-padding: 1rem;
+      --card-border-radius: 0.5rem;
+      --shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+      --max-width: 900px;
+    }
+
+    nav.menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--color-purple);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    nav.menu a {
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav.menu a:hover {
+      background-color: var(--color-purple-hover);
+    }
+
+    body {
+      background-color: var(--color-bg);
+      font-family: var(--font-family);
+      color: var(--color-text);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 6rem 1rem 2rem;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: var(--color-purple);
+      margin-bottom: 1rem;
+    }
+
+    .section {
+      background-color: var(--card-bg-color);
+      border: 1px solid var(--card-border-color);
+      border-radius: var(--card-border-radius);
+      padding: var(--card-padding);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    pre {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    code {
+      font-family: Consolas, monospace;
+    }
+
+    .typed {
+      font-family: Consolas, monospace;
+      background-color: #f5f5f5;
+      display: block;
+      padding: 1rem;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="menu">
+    <a href="index.html"><i class="fas fa-home"></i> Início</a>
+    <a href="tutorial.html"><i class="fas fa-book"></i> Tutorial</a>
+    <a href="tutorialav.html"><i class="fas fa-laptop-code"></i> Tutorial Avançado</a>
+  </nav>
+
+  <h1><i class="fas fa-tools"></i> Tutorial Avançado</h1>
+
+
+<section class="section" data-aos="fade-up">
+  <h2><i class="fas fa-laptop-code"></i> Como o site foi feito?</h2>
+  <p>
+    Este gerador de scripts VBS foi desenvolvido inteiramente com tecnologias web modernas e funciona 100% no navegador, sem a necessidade de servidor backend.
+  </p>
+  <ul style="padding-left: 1.2rem; list-style-type: disc;">
+    <li><strong>HTML</strong> para estruturação do conteúdo.</li>
+    <li><strong>CSS</strong> com variáveis <code>:root</code> para estilização e responsividade.</li>
+    <li><strong>JavaScript</strong> modular para gerar dinamicamente o arquivo VBS e simular digitação humana.</li>
+    <li><strong>AOS (Animate On Scroll)</strong> para animações suaves enquanto o usuário navega.</li>
+    <li><strong>Font Awesome</strong> para adicionar ícones que tornam o conteúdo mais visual.</li>
+  </ul>
+  <p>
+    O foco é oferecer uma ferramenta prática, leve e acessível para todos que desejam automatizar digitação no Windows.
+  </p>
+</section>
+
+<section class="section" data-aos="fade-up">
+  <h2><i class="fas fa-magic"></i> Como funciona na prática?</h2>
+  <p>
+    O site permite que o usuário insira um texto personalizado, defina a velocidade de digitação, e gere um arquivo <code>.vbs</code> que automatiza a escrita em qualquer campo do Windows. A geração funciona da seguinte forma:
+  </p>
+  <ol style="padding-left: 1.2rem;">
+    <li>O texto é higienizado e convertido com <code>cleanText()</code> para evitar caracteres que quebrem o script.</li>
+    <li>Um código VBS é montado em tempo real e armazenado em um <code>Blob</code>.</li>
+    <li>Esse Blob é transformado em um link de download, e o navegador automaticamente faz o download do arquivo pronto.</li>
+    <li>Ao executar o script, ele espera 3 segundos e então começa a digitar caractere por caractere.</li>
+  </ol>
+  <p>
+    Tudo é feito no próprio navegador do usuário, garantindo segurança, privacidade e independência de conexão com servidores.
+  </p>
+</section>
+
+<section class="section" data-aos="fade-up">
+  <h2><i class="fas fa-lightbulb"></i> Curiosidades técnicas</h2>
+  <ul style="padding-left: 1.2rem; list-style-type: disc;">
+    <li><strong>Tipagem automática</strong>: a simulação de digitação é feita com delays aleatórios para parecer mais humana.</li>
+    <li><strong>Execução instantânea</strong>: o arquivo gerado pode ser usado imediatamente após o download.</li>
+    <li><strong>Compatibilidade</strong>: o script funciona em qualquer sistema Windows com suporte a VBS (praticamente todos).</li>
+    <li><strong>Leveza</strong>: todo o site tem menos de 100KB e carrega em poucos segundos.</li>
+  </ul>
+</section>
+
+
+  <section class="section" data-aos="fade-up">
+    <h2><i class="fas fa-robot"></i> Simulando digitação humana</h2>
+    <p class="typed" data-text='Set WshShell = CreateObject("WScript.Shell")&#10;Randomize&#10;WScript.Sleep 3000&#10;&#10;texto = "Texto digitado..."&#10;&#10;For i = 1 To Len(texto)&#10;    char = Mid(texto, i, 1)&#10;    WshShell.SendKeys char&#10;    WScript.Sleep Int((250 - 50 + 1) * Rnd + 50)&#10;Next'></p>
+    <p><i class="fas fa-clock"></i> O tempo entre cada tecla varia entre 50ms e o valor selecionado (ex: 250ms).</p>
+  </section>
+
+  <section class="section" data-aos="fade-up">
+    <h2><i class="fas fa-broom"></i> Limpeza e segurança do texto</h2>
+    <p class="typed" data-text='function escapeSendKeys(text) {
+  const replacements = {
+    "+": "{+}", "^": "{^}", "%": "{%}", "~": "{~}",
+    "(": "{(}", ")": "{)}", "{": "{{}", "}": "{}}",
+    "[": "{[}", "]": "{]}"
+  };
+  return text.replace(/[+^%~(){}\\[\\]]/g, match => replacements[match]);
+}
+
+function cleanText(str) {
+  return escapeSendKeys(
+    str.normalize("NFD")
+       .replace(/[\\u0300-\\u036f]/g, "")
+       .replace(/ç/g, "c").replace(/Ç/g, "C")
+       .replace(/"/g, "\") 
+  );
+}'></p>
+    <p><i class="fas fa-shield-alt"></i> Isso garante que o script não quebre ao digitar textos com símbolos especiais.</p>
+  </section>
+
+  <section class="section" data-aos="fade-up">
+    <h2><i class="fas fa-download"></i> Geração automática do VBS</h2>
+    <p class="typed" data-text='const blob = new Blob([vbsCode], { type: "text/vbs" });
+const link = document.createElement("a");
+link.href = URL.createObjectURL(blob);
+link.download = fileName;
+link.click();'></p>
+    <p><i class="fas fa-code-branch"></i> Isso permite que o site funcione 100% sem backend.</p>
+  </section>
+
+  <section class="section" data-aos="fade-up">
+    <h2><i class="fas fa-table"></i> Comparativo entre versões</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+      <thead>
+        <tr style="background: #eee;">
+          <th style="padding: 0.5rem; border: 1px solid #ccc;">Funcionalidade</th>
+          <th style="padding: 0.5rem; border: 1px solid #ccc;">Versão Simples</th>
+          <th style="padding: 0.5rem; border: 1px solid #ccc;">Versão Avançada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid #ccc;">Delay fixo</td>
+          <td style="text-align: center;">✔️</td>
+          <td style="text-align: center;">❌</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid #ccc;">Delay aleatório</td>
+          <td style="text-align: center;">❌</td>
+          <td style="text-align: center;">✔️</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid #ccc;">Limpeza de texto</td>
+          <td style="text-align: center;">❌</td>
+          <td style="text-align: center;">✔️</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem; border: 1px solid #ccc;">Escape de símbolos</td>
+          <td style="text-align: center;">❌</td>
+          <td style="text-align: center;">✔️</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- AOS e digitação -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+  </script>
+  <script>
+    function typeText(element, text, delay = 25) {
+      if (element.getAttribute('data-typed') === 'true') return;
+      element.setAttribute('data-typed', 'true');
+      let i = 0;
+      const typing = () => {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, delay + Math.random() * 30);
+        }
+      };
+      typing();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const typedElements = document.querySelectorAll('.typed');
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const text = el.getAttribute('data-text');
+            if (text) typeText(el, text);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      typedElements.forEach(el => {
+        el.innerHTML = '';
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
