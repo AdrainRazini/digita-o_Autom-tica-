@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tutorial</title>
+  <link rel="shortcut icon" href="img/icone.ico" type="image/x-icon" />
+
+  <!-- Font Awesome (ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --font-family: 'Segoe UI', sans-serif;
+      --color-bg: #ffffff;
+      --color-text: #111827;
+      --color-border: #d1d5db;
+      --color-primary: #25D366;
+      --color-primary-hover: #1ebe5d;
+      --color-purple: #6c5ce7;
+      --color-purple-hover: #5a3c9f;
+      --color-white: white;
+      --color-black: #000000;
+      --color-gray: #808080;
+      --color-gray-light: #f7f7f7;
+      --color-gray-dark: #333;
+      --card-bg-color: #fff;
+      --card-border-color: #ddd;
+      --card-padding: 1rem;
+      --card-margin: 1rem;
+      --card-border-radius: 0.5rem;
+      --category-color: #333;
+      --btn-padding: 0.5rem 1rem;
+      --btn-margin: 1rem 0;
+      --max-width: 800px;
+      --gap: 1rem;
+      --padding: 1rem;
+      --radius: 8px;
+      --shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav.menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--color-purple);
+      padding: 1rem var(--padding);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1000;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    nav.menu a {
+      color: var(--color-white);
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    nav.menu a:hover {
+      background-color: var(--color-purple-hover);
+    }
+
+    body {
+      background-color: var(--color-bg);
+      font-family: var(--font-family);
+      color: var(--color-text);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: calc(var(--padding) + 4rem) var(--padding) var(--padding);
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      color: var(--color-purple);
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .section {
+      background-color: var(--card-bg-color);
+      border: 1px solid var(--card-border-color);
+      border-radius: var(--card-border-radius);
+      padding: var(--card-padding);
+      margin-bottom: var(--gap);
+      box-shadow: var(--shadow);
+    }
+
+    p {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    video.imagem-dinamica,
+    img.imagem-dinamica {
+      display: block;
+      margin: 1rem auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    img.imagem-dinamica {
+      max-height: 300px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="menu">
+    <a href="index.html" title="Voltar para a página inicial"><i class="fas fa-arrow-left"></i> Voltar</a>
+  </nav>
+
+  <section class="section" data-aos="fade-up">
+    <video class="imagem-dinamica" width="640" height="360" controls data-aos="zoom-in">
+      <source src="img/Redação Paraná - Google Chrome 2025-03-31 13-29-35.mp4" type="video/mp4" />
+      Seu navegador não suporta o elemento de vídeo.
+    </video>
+    <p><i class="fas fa-play-circle"></i> Em Ação no Redação Paraná.</p>
+  </section>
+
+  <section class="section" data-aos="fade-up">
+    <video class="imagem-dinamica" width="640" height="360" controls data-aos="zoom-in">
+      <source src="img/Gerador de VBS - Google Chrome 2025-03-31 01-16-20.mp4" type="video/mp4" />
+      Seu navegador não suporta o elemento de vídeo.
+    </video>
+    <p>
+      <i class="fas fa-info-circle"></i> O vídeo acima mostra como usar o gerador de VBS, automatizando a digitação em sistemas Windows.
+    </p>
+  </section>
+
+  <section class="section" data-aos="fade-up">
+    <h2><i class="fas fa-cogs"></i> Como funciona?</h2>
+    <p>
+      Após gerar o arquivo VBS com o texto desejado, ele pode ser executado em qualquer máquina com Windows. Veja exemplos:
+    </p>
+
+    <img class="imagem-dinamica" src="img/Gerar vbs.png" alt="Interface do gerador de VBS" style="max-width: 100px; max-height: 50px;" data-aos="flip-left" />
+    <p><i class="fas fa-edit"></i> Interface para inserir texto.</p>
+
+    <img class="imagem-dinamica" src="img/baixado.png" alt="Arquivo VBS baixado" data-aos="flip-right" />
+    <p><i class="fas fa-download"></i> Arquivo VBS baixado e pronto para uso.</p>
+
+    <img class="imagem-dinamica" src="img/sendo executado .png" alt="Script VBS sendo executado" data-aos="flip-left" />
+    <p><i class="fas fa-terminal"></i> Execução do script VBS.</p>
+
+    <img class="imagem-dinamica" src="img/tela toda.png" alt="Execução do script digitando texto" data-aos="flip-right" />
+    <p><i class="fas fa-keyboard"></i> Digitação automatizada em qualquer campo de texto.</p>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>

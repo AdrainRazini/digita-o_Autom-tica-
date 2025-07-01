@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerador de VBS</title>
+  <link rel="shortcut icon" href="img/icone.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <style>
+    /* Menu fixo no topo */
+    nav.menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #6c5ce7; /* var(--color-purple) */
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    nav.menu a {
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav.menu a:hover {
+      background-color: #5a3c9f; /* var(--color-purple-hover) */
+    }
+
+    /* Ajusta o padding do body para não ficar atrás do menu fixo */
+    body {
+      padding-top: 60px;
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      color: #111827;
+      background: #fff;
+    }
+
+  </style>
+
+<style>
+  footer#contato {
+    margin-top: 3rem;
+    padding: 1.5rem 1rem;
+    background-color: #f7f7f7;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  footer#contato p {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    font-size: 1.4rem;
+    color: #6c5ce7;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #5a3c9f;
+    transform: scale(1.1);
+  }
+</style>
+
+
+</head>
+<body>
+
+  <nav class="menu" role="navigation" aria-label="Menu principal">
+    <a href="index.html" title="Página inicial">
+      <i class="fas fa-home"></i> Início
+    </a>
+    <a href="tutorial.html" title="Página de tutorial">
+      <i class="fas fa-book"></i> Tutorial
+    </a>
+    <a
+      href="https://wa.me/554196638056"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Entrar em contato com o suporte via WhatsApp"
+    >
+      <i class="fab fa-whatsapp"></i> Suporte
+    </a>
+  </nav>
+
+  <h1><i class="fas fa-keyboard"></i> Gerador de VBS</h1>
+
+  <label for="userText">
+    <strong><i class="fas fa-align-left"></i> Texto a ser digitado:</strong>
+  </label>
+  <textarea id="userText" placeholder="Digite seu texto aqui..."></textarea>
+  <br /><br />
+
+  <label for="fileName"><i class="fas fa-file-alt"></i> Nome do arquivo:</label>
+  <input type="text" id="fileName" placeholder="ex: meu_script.vbs" value="escrita.vbs" />
+  <br /><br />
+
+  <label for="speedControl"><i class="fas fa-gauge"></i> Velocidade de digitação:</label>
+  <input type="range" id="speedControl" min="200" max="500" step="10" value="200" />
+
+  <span id="speedLabel">200ms</span>
+  <br /><br />
+
+  <button onclick="generateVBS()">
+    <i class="fas fa-download"></i> Gerar VBS
+  </button>
+
+  <script type="module" src="js/main.js"></script>
+  <script>
+    const speedControl = document.getElementById('speedControl');
+    const speedLabel = document.getElementById('speedLabel');
+    speedControl.addEventListener('input', () => {
+      speedLabel.textContent = speedControl.value + 'ms';
+    });
+  </script>
+
+<!-- Meu contato -->
+  
+ 
+  <footer id="contato">
+    <p>@Adrain Razini Rangel</p>
+    <div class="social-links">
+      <a href="https://site-central-silk.vercel.app/" aria-label="Outro Projeto Adrian Razini">
+        <i class="fas fa-compass"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/adrian-razini-rangel-07393b2b8/" aria-label="LinkedIn Adrian Razini Rangel">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/AdrainRazini" aria-label="GitHub Adrian Razini">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://www.instagram.com/adrian75556435/" aria-label="Instagram Adrian Razini">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://api.whatsapp.com/send?phone=554196638056&text=Olá!" aria-label="WhatsApp Adrian Razini">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+  </footer>
+ 
+
+</body>
+</html>
