@@ -48,15 +48,26 @@ Por fim, o script gerado será executado, automatizando a digitação do texto i
 
 ```
 site-central/
-│-- public/
-│   │-- index.html
-│   │-- style.css
-│   │-- img/ 
-│   
-│      
-│-- readme.md
-│-- package.json
-│-- index.js
+│
+├── public/                 # Arquivos estáticos acessíveis ao navegador
+│   ├── css/                # Estilos
+│   │   └── style.css       
+│   ├── img/                # Imagens usadas nos ícones e páginas
+│   ├── js/                 # Scripts JS frontend
+│   │   ├── main.js
+│   │   └── script.js
+│   ├── index.html          # Página principal
+│   ├── tutorial.html       # Tutorial básico
+│   └── tutorialav.html     # Tutorial avançado (com digitação automática e comparação)
+│
+├── temp/                   # Geração de arquivos .vbs (via backend opcional)
+│   ├── digitar.vbs
+│   └── escrita.vbs
+│
+├── index.js                # Servidor Node.js com Express (API para gerar VBS)
+├── package.json            # Dependências do projeto
+└── README.md               # Explicações e documentação do projeto
+
 ```
 
 ---
