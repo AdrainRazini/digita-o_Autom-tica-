@@ -95,11 +95,15 @@
         const lines = cleanedText.split("\n").map(line => `"${line.trim()}"`);
         const formattedText = lines.join(" & vbCrLf & _\n");
 
-        const vbsCode = `Set WshShell = CreateObject("WScript.Shell")\n` +
-                        `WScript.Sleep 2000 ' Espera 2 segundos\n\n` +
-                        `texto = ${formattedText}\n\n` +
-                        `WshShell.SendKeys texto\n` +
-                        `WshShell.SendKeys "{ENTER}"`;
+         const vbsCode = 
+`Set WshShell = CreateObject("WScript.Shell")
+WScript.Sleep 2000 ' Espera 2 segundos antes de digitar
+
+texto = ${lines}
+For i = 1 To Len(texto)
+    WshShell.SendKeys Mid(texto, i, 1)
+    WScript.Sleep 100 ' tempo entre letras (em milissegundos)
+Next`;
 
         const blob = new Blob([vbsCode], { type: 'text/vbs' });
         const link = document.createElement('a');
