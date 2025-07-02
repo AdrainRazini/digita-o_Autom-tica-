@@ -8,27 +8,28 @@ window.addEventListener("DOMContentLoaded", () => {
     speedLabel.textContent = speedControl.value + 'ms';
   }
 
-  function handleFastModeToggle() {
-    const isFast = fastCheckbox.checked;
+function handleFastModeToggle() {
+  const isFast = fastCheckbox.checked;
 
-    // Mostra ou esconde o aviso com animação
-    fastWarning.style.display = isFast ? "flex" : "none";
-    if (isFast) {
-      fastWarning.classList.add("show");
-    } else {
-      fastWarning.classList.remove("show");
-    }
-
-    // Define novo mínimo dinamicamente
-    const newMin = isFast ? 50 : 200;
-    speedControl.min = newMin;
-
-    // Ajusta o valor atual se estiver abaixo do mínimo
-    if (parseInt(speedControl.value) < newMin) {
-      speedControl.value = newMin;
-      updateSpeedLabel();
-    }
+  // Mostra ou esconde o aviso com animação
+  fastWarning.style.display = isFast ? "flex" : "none";
+  if (isFast) {
+    fastWarning.classList.add("show");
+  } else {
+    fastWarning.classList.remove("show");
   }
+
+  // Define novo mínimo dinamicamente
+  const newMin = isFast ? 50 : 200;
+  speedControl.min = newMin;
+
+  // Ajusta o valor atual e o texto do label se estiver abaixo do mínimo
+  if (parseInt(speedControl.value) < newMin) {
+    speedControl.value = newMin;
+  }
+  updateSpeedLabel(); // Atualiza o texto sempre que o valor mudar
+}
+
 
   // Eventos
   speedControl.addEventListener('input', updateSpeedLabel);
@@ -100,3 +101,4 @@ Next`;
     link.click();
   };
 });
+
