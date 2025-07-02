@@ -176,43 +176,6 @@
   <script type="module" src="js/main.js"></script>
 
 <!-- Meu contato -->
-  <script>
-  const speedControl = document.getElementById('speedControl');
-  const speedLabel = document.getElementById('speedLabel');
-  const fastCheckbox = document.getElementById("fastMode");
-  const fastWarning = document.getElementById("fastWarning");
-
-  function updateSpeedLabel() {
-    speedLabel.textContent = speedControl.value + 'ms';
-  }
-
-  speedControl.addEventListener('input', updateSpeedLabel);
-
-  fastCheckbox.addEventListener("change", () => {
-    const isFast = fastCheckbox.checked;
-
-    // Mostra ou esconde o aviso
-    fastWarning.style.display = isFast ? "flex" : "none";
-
-    // Define novo mínimo dinamicamente
-    const newMin = isFast ? 50 : 200;
-    speedControl.min = newMin;
-
-    // Ajusta o valor atual caso esteja abaixo do novo mínimo
-    if (parseInt(speedControl.value) < newMin) {
-      speedControl.value = newMin;
-      updateSpeedLabel();
-    }
-  });
-
-  // modo rápido automaticamente no carregamento
-  fastCheckbox.checked = false;
-  fastCheckbox.dispatchEvent(new Event("change"));
-
-  // Atualiza o rótulo da velocidade
-  updateSpeedLabel();
-</script>
-
 
  
   <footer id="contato">

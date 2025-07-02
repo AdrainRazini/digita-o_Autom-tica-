@@ -4,20 +4,42 @@ window.addEventListener("DOMContentLoaded", () => {
   const fastCheckbox = document.getElementById("fastMode");
   const fastWarning = document.getElementById("fastWarning");
 
-  // Atualiza o rótulo da velocidade ao mover o slider
-  speedControl.addEventListener('input', () => {
+  function updateSpeedLabel() {
     speedLabel.textContent = speedControl.value + 'ms';
-  });
+  }
 
-  // Mostra ou esconde o aviso com animação
-  fastCheckbox.addEventListener("change", () => {
-    if (fastCheckbox.checked) {
+  function handleFastModeToggle() {
+    const isFast = fastCheckbox.checked;
+
+    // Mostra ou esconde o aviso com animação
+    fastWarning.style.display = isFast ? "flex" : "none";
+    if (isFast) {
       fastWarning.classList.add("show");
     } else {
       fastWarning.classList.remove("show");
     }
-  });
 
+    // Define novo mínimo dinamicamente
+    const newMin = isFast ? 50 : 200;
+    speedControl.min = newMin;
+
+    // Ajusta o valor atual se estiver abaixo do mínimo
+    if (parseInt(speedControl.value) < newMin) {
+      speedControl.value = newMin;
+      updateSpeedLabel();
+    }
+  }
+
+  // Eventos
+  speedControl.addEventListener('input', updateSpeedLabel);
+  fastCheckbox.addEventListener("change", handleFastModeToggle);
+
+  // Modo rápido começa desligado, mas aplica regras
+  fastCheckbox.checked = false;
+  handleFastModeToggle();
+  updateSpeedLabel();
+
+  // Funções de texto e geração do VBS
   function escapeSendKeys(text) {
     const replacements = {
       '+': '{+}', '^': '{^}', '%': '{%}', '~': '{~}',
@@ -76,5 +98,5 @@ Next`;
     link.href = URL.createObjectURL(blob);
     link.download = fileName;
     link.click();
-  }
+  };
 });
