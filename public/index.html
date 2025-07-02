@@ -56,9 +56,6 @@
       background: #fff;
     }
 
-  </style>
-
-<style>
   footer#contato {
     margin-top: 3rem;
     padding: 1.5rem 1rem;
@@ -91,6 +88,32 @@
     color: #5a3c9f;
     transform: scale(1.1);
   }
+
+  
+#fastWarning {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background-color: #ffeaea;
+  color: #e74c3c;
+  border: 1px solid #e0b4b4;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Quando visível */
+#fastWarning.show {
+  opacity: 1;
+}
+
+
 </style>
 
 
@@ -131,9 +154,19 @@
   <br /><br />
 
   <label for="speedControl"><i class="fas fa-gauge"></i> Velocidade de digitação:</label>
-  <input type="range" id="speedControl" min="200" max="500" step="10" value="200" />
-
+  <input type="range" id="speedControl" min="50" max="500" step="10" value="200" />
   <span id="speedLabel">200ms</span>
+
+  <br /><br />
+  <label>
+    <input type="checkbox" id="fastMode" />
+    Ativar modo rápido
+  </label>
+
+  <div id="fastWarning">
+  <i class="fas fa-triangle-exclamation"></i>
+  O Redação Paraná pode detectar a velocidade anormal de digitação e deletar todo o seu texto
+</div>
   <br /><br />
 
   <button onclick="generateVBS()">
@@ -141,16 +174,46 @@
   </button>
 <script type="module" src="js/script.js"></script>
   <script type="module" src="js/main.js"></script>
-  <script>
-    const speedControl = document.getElementById('speedControl');
-    const speedLabel = document.getElementById('speedLabel');
-    speedControl.addEventListener('input', () => {
-      speedLabel.textContent = speedControl.value + 'ms';
-    });
-  </script>
 
 <!-- Meu contato -->
-  
+  <script>
+  const speedControl = document.getElementById('speedControl');
+  const speedLabel = document.getElementById('speedLabel');
+  const fastCheckbox = document.getElementById("fastMode");
+  const fastWarning = document.getElementById("fastWarning");
+
+  function updateSpeedLabel() {
+    speedLabel.textContent = speedControl.value + 'ms';
+  }
+
+  speedControl.addEventListener('input', updateSpeedLabel);
+
+  fastCheckbox.addEventListener("change", () => {
+    const isFast = fastCheckbox.checked;
+
+    // Mostra ou esconde o aviso
+    fastWarning.style.display = isFast ? "flex" : "none";
+
+    // Define novo mínimo dinamicamente
+    const newMin = isFast ? 50 : 200;
+    speedControl.min = newMin;
+
+    // Ajusta o valor atual caso esteja abaixo do novo mínimo
+    if (parseInt(speedControl.value) < newMin) {
+      speedControl.value = newMin;
+      updateSpeedLabel();
+    }
+  });
+
+  // modo rápido automaticamente no carregamento
+  fastCheckbox.checked = false;
+  fastCheckbox.dispatchEvent(new Event("change"));
+
+  // Atualiza o rótulo da velocidade
+  updateSpeedLabel();
+</script>
+
+
  
   <footer id="contato">
     <p>@Adrain Razini Rangel</p>

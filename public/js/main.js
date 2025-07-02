@@ -1,52 +1,64 @@
-function escapeSendKeys(text) {
-  const replacements = {
-    '+': '{+}',
-    '^': '{^}',
-    '%': '{%}',
-    '~': '{~}',
-    '(': '{(}',
-    ')': '{)}',
-    '{': '{{}',
-    '}': '{}}',
-    '[': '{[}',
-    ']': '{]}'
-  };
-  return text.replace(/[+^%~(){}\[\]]/g, match => replacements[match]);
-}
+window.addEventListener("DOMContentLoaded", () => {
+  const speedControl = document.getElementById('speedControl');
+  const speedLabel = document.getElementById('speedLabel');
+  const fastCheckbox = document.getElementById("fastMode");
+  const fastWarning = document.getElementById("fastWarning");
 
-function cleanText(str) {
-  return escapeSendKeys(
-    str
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "") // remove acentos
-      .replace(/ç/g, "c").replace(/Ç/g, "C")
-      .replace(/"/g, "'") // substitui aspas duplas
-  );
-}
+  // Atualiza o rótulo da velocidade ao mover o slider
+  speedControl.addEventListener('input', () => {
+    speedLabel.textContent = speedControl.value + 'ms';
+  });
 
-export function generateVBS() {
-  const userText = document.getElementById("userText").value.trim();
-  let fileName = document.getElementById("fileName").value.trim();
-  let speed = parseInt(document.getElementById("speedControl").value);
+  // Mostra ou esconde o aviso com animação
+  fastCheckbox.addEventListener("change", () => {
+    if (fastCheckbox.checked) {
+      fastWarning.classList.add("show");
+    } else {
+      fastWarning.classList.remove("show");
+    }
+  });
 
-  if (!userText) {
-    alert("Por favor, digite algum texto.");
-    return;
+  function escapeSendKeys(text) {
+    const replacements = {
+      '+': '{+}', '^': '{^}', '%': '{%}', '~': '{~}',
+      '(': '{(}', ')': '{)}', '{': '{{}', '}': '{}}',
+      '[': '{[}', ']': '{]}'
+    };
+    return text.replace(/[+^%~(){}\[\]]/g, match => replacements[match]);
   }
 
-  if (!fileName) fileName = "escrita.vbs";
-  if (!fileName.toLowerCase().endsWith(".vbs")) fileName += ".vbs";
+  function cleanText(str) {
+    return escapeSendKeys(
+      str.normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ç/g, "c").replace(/Ç/g, "C")
+        .replace(/"/g, "'")
+    );
+  }
 
-  // ✅ Garante que a velocidade mínima será 200ms
-  if (speed < 200) speed = 200;
+  window.generateVBS = function () {
+    const userText = document.getElementById("userText").value.trim();
+    let fileName = document.getElementById("fileName").value.trim();
+    let speed = parseInt(speedControl.value);
+    const fastMode = fastCheckbox.checked;
 
-  const cleanedText = cleanText(userText);
-  const lines = cleanedText
-    .split("\n")
-    .map(line => `"${line.trim()}"`)
-    .join(" & vbCrLf & _\n");
+    if (!userText) {
+      alert("Por favor, digite algum texto.");
+      return;
+    }
 
-  const vbsCode = 
+    if (!fileName) fileName = "escrita.vbs";
+    if (!fileName.toLowerCase().endsWith(".vbs")) fileName += ".vbs";
+
+    if (!fastMode && speed < 200) speed = 200;
+
+    const cleanedText = cleanText(userText);
+    const lines = cleanedText
+      .split("\n")
+      .map(line => `"${line.trim()}"`)
+      .join(" & vbCrLf & _\n");
+
+    const vbsCode =
 `Set WshShell = CreateObject("WScript.Shell")
 Randomize
 WScript.Sleep 3000 ' Espera 3 segundos antes de digitar
@@ -59,11 +71,10 @@ For i = 1 To Len(texto)
     WScript.Sleep Int((${speed} - 50 + 1) * Rnd + 50)
 Next`;
 
-  const blob = new Blob([vbsCode], { type: 'text/vbs' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = fileName;
-  link.click();
-}
-
-window.generateVBS = generateVBS;
+    const blob = new Blob([vbsCode], { type: 'text/vbs' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+  }
+});
