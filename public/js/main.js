@@ -100,4 +100,3 @@ Next`;
     link.click();
   };
 });
-
