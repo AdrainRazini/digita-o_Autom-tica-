@@ -4,52 +4,77 @@ window.addEventListener("DOMContentLoaded", () => {
   const fastCheckbox = document.getElementById("fastMode");
   const fastWarning = document.getElementById("fastWarning");
 
+  const delcheckbox = document.getElementById("delMode");
+  const delWarning = document.getElementById("delWarning");
+
   function updateSpeedLabel() {
     speedLabel.textContent = speedControl.value + 'ms';
   }
 
-function handleFastModeToggle() {
-  const isFast = fastCheckbox.checked;
+  function handleFastModeToggle() {
+    const isFast = fastCheckbox.checked;
+    const isDel = delcheckbox.checked;
 
-  // Mostra ou esconde o aviso com animação
-  fastWarning.style.display = isFast ? "flex" : "none";
-  if (isFast) {
-    fastWarning.classList.add("show");
-  } else {
-    fastWarning.classList.remove("show");
+    // Mostrar ou esconder aviso de modo rápido
+    fastWarning.style.display = isFast ? "flex" : "none";
+    if (isFast) {
+      fastWarning.classList.add("show");
+    } else {
+      fastWarning.classList.remove("show");
+    }
+
+    // Mostrar ou esconder aviso de deletar especiais
+    delWarning.style.display = isDel ? "none" : "flex";
+    if (isDel) {
+      delWarning.classList.remove("show");
+    } else {
+      delWarning.classList.add("show");
+    }
+
+    // Define novo mínimo dinamicamente
+    const newMin = isFast ? 50 : 200;
+    speedControl.min = newMin;
+
+    // Ajusta valor se estiver abaixo do mínimo
+    if (parseInt(speedControl.value) < newMin) {
+      speedControl.value = newMin;
+    }
+
+    updateSpeedLabel();
   }
-
-  // Define novo mínimo dinamicamente
-  const newMin = isFast ? 50 : 200;
-  speedControl.min = newMin;
-
-  // Ajusta o valor atual e o texto do label se estiver abaixo do mínimo
-  if (parseInt(speedControl.value) < newMin) {
-    speedControl.value = newMin;
-  }
-  updateSpeedLabel(); // Atualiza o texto sempre que o valor mudar
-}
-
 
   // Eventos
   speedControl.addEventListener('input', updateSpeedLabel);
   fastCheckbox.addEventListener("change", handleFastModeToggle);
+  delcheckbox.addEventListener("change", handleFastModeToggle);
 
-  // Modo rápido começa desligado, mas aplica regras
+  // Estado inicial
   fastCheckbox.checked = false;
+  delcheckbox.checked = true;
+
   handleFastModeToggle();
   updateSpeedLabel();
 
-  // Funções de texto e geração do VBS
-  function escapeSendKeys(text) {
-    const replacements = {
-      '+': '{+}', '^': '{^}', '%': '{%}', '~': '{~}',
-      '(': '{(}', ')': '{)}', '{': '{{}', '}': '{}}',
-      '[': '{[}', ']': '{]}'
-    };
-   // return text.replace(/[+^%~(){}\[\]]/g, match => replacements[match]);
-  return text.replace(/[+^%~(){}\[\]]/g, '');
+
+
+// Funções de texto e geração do VBS
+function escapeSendKeys(text) {
+  const replacements = {
+    '+': '{+}', '^': '{^}', '%': '{%}', '~': '{~}',
+    '(': '{(}', ')': '{)}', '{': '{{}', '}': '{}}',
+    '[': '{[}', ']': '{]}'
+  };
+
+  if (delcheckbox.checked) {
+    // Remove os caracteres especiais
+    return text.replace(/[+^%~(){}\[\]]/g, '');
+  } else {
+    // Escapa os caracteres especiais
+    return text.replace(/[+^%~(){}\[\]]/g, match => replacements[match]);
+  }
 }
+
+
 
   function cleanText(str) {
     return escapeSendKeys(

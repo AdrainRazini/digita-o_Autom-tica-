@@ -89,7 +89,7 @@
     transform: scale(1.1);
   }
 
-  
+#delWarning,
 #fastWarning {
   display: none;
   opacity: 0;
@@ -109,10 +109,10 @@
 }
 
 /* Quando visível */
-#fastWarning.show {
+#fastWarning.show,
+#delWarning.show {
   opacity: 1;
 }
-
 
 </style>
 
@@ -170,6 +170,16 @@
   O Redação Paraná pode detectar a velocidade anormal de digitação e deletar todo o seu texto
 </div>
   <br /><br />
+
+  <label>
+    <input type="checkbox" id="delMode" />
+    Auto Deletar Especiais
+  </label>
+
+    <div id="delWarning">
+  <i class="fas fa-triangle-exclamation"></i>
+  Caso não deletar pode ocorer erros
+</div>
 
   <button onclick="generateVBS()">
     <i class="fas fa-download"></i> Gerar VBS
